@@ -1,4 +1,7 @@
 *.exe
+idea
 .idea
 .idea/*
 *.log
+log
+run
