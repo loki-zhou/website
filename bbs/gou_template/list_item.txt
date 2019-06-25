@@ -1,0 +1,31 @@
+{{/*
+ Copyright (c) 2005-2014 shinGETsu Project.
+ */}}
+{{define "list_item"}}
+{{$root:=.}}
+{{ range $cache:=.Caches }}
+<li>
+{{ if and $root.IsAdmin $root.Remove }}
+  <input type="checkbox" name="file" value="{{.Cache.Datfile}}" style="display:inline-block" />
+{{ end }}
+  <span class="stamp" id="s{{.Cache.RecentStamp}}">{{localtime .Cache.RecentStamp}}</span>
+
+<a href="{{$root.ThreadCGI}}/{{strEncode .Title}}{{$root.StrOpts}}">{{.Title}}</a>
+({{.Cache.Len 1}}/{{toInt .Cache.Size|toMB|printf "%.1f"}}{{$root.Message.mb}})
+{{ if .Tags}}
+  <span class="tags">
+  {{ range $tag:=.Tags }}
+    <a href="{{$root.GatewayCGI}}/{{$root.Target}}?tag={{strEncode $tag.Tagstr}}" class="tag">{{$tag.Tagstr}}</a>
+  {{ end }}
+  </span>
+{{ end }}
+{{ if .Sugtags}}
+<span class="sugtags">
+{{ range $tag:=.Sugtags }}
+<a href="{{$root.GatewayCGI}}/{{$root.Target}}?tag={{strEncode $tag.Tagstr}}" class="tag">{{$tag.Tagstr}}</a>
+{{ end }}
+</span>
+{{ end }}
+</li>
+{{end}}
+{{end}}

@@ -1,0 +1,53 @@
+{{/*
+ Copyright (c) 2005-2014 shinGETsu Project.
+ */}}
+{{define "top"}}
+{{$root:=.}}
+<div style="background:url(/arazuki_saku.png) no-repeat 100% 0%;">
+<ul class="topmenu">
+    <li><a href="{{.GatewayCGI}}/changes" title="{{.DescChanges}}">{{.Message.changes}}</a>
+    <li><a href="{{.GatewayCGI}}/index" title="{{.DescIndex}}">{{.Message.index}}</a>
+{{ if or .IsFriend .IsAdmin }}
+    <li><a href="{{.GatewayCGI}}/recent" title="{{.DescRecent}}">{{.Message.recent}}</a>
+    <li><a href="{{.GatewayCGI}}/new" title="{{.DescNew}}">{{.Message.new}}</a>
+{{ end }}
+{{ if .IsAdmin }}
+    <li><a href="{{.AdminCGI}}/search" title="{{.DescSearch}}">{{.Message.search}}</a>
+    <li><a href="{{.AdminCGI}}/status" title="{{.DescStatus}}">{{.Message.status}}</a>
+{{ end }}
+<li><a href="http://www.shingetsu.info/">{{.Message.site}}</a></li>
+<li><a href="{{.GatewayCGI}}/motd">{{.Message.agreement}}</a></li>
+{{ if .MchURL }}
+  <li><a href="{{.MchURL}}">{{.Message.mch}}</a></li>
+{{ end }}
+<li><a href="{{.GatewayCGI}}/rss">{{.Message.rss}}</a></li>
+</ul>
+
+<h2>{{.Message.recent_changes}}</h2>
+<ul id="top_index">
+{{ template "list_item" .}}
+</ul>
+{{ if and (.NoList)  (or .IsFriend .IsAdmin) }}
+<p>{{.EmptyList}}</p>
+{{ end }}
+
+{{ if .Taglist }}
+  <h2>{{.Message.tag}}</h2>
+  <ul class="topmenu">
+  {{ range $t:=.Taglist }}
+    <li><a href="{{$root.GatewayCGI}}/{{$root.Target}}?tag={{$t.Tagstr}}">{{$t.Tagstr}}</a></li>
+  {{ end }}
+  </ul>
+{{ end }}
+
+{{ if .MchURL }}
+  <h2>{{.Message.mch_categories}}</h2>
+  <ul class="topmenu">
+    <li><a href="{{.MchURL}}">{{.Message.all}}</a></li>
+  {{ range $category:=.MchCategories }}
+    <li><a href="{{$category.URL}}">{{$category.Text}}</a></li>
+  {{ end }}
+  </ul>
+{{ end }}
+{{end}}
+</div>

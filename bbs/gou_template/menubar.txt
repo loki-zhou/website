@@ -1,0 +1,22 @@
+{{/*
+ Copyright (c) 2005-2014 shinGETsu Project.
+ */}}
+{{define "menubar"}}
+{{ if .ID}}
+  <aside class="navbar-collapse" id="{{.ID}}">
+{{ else }}
+  <aside class="navbar-collapse">
+{{ end }}
+<ul class="nav nav-pills navbar-nav">
+  <li><a href="{{.GatewayCGI}}">{{.Message.top}}</a></li>
+    <li><a href="{{.GatewayCGI}}/changes" title="{{.DescChanges}}">{{.Message.changes}}</a>
+    <li><a href="{{.GatewayCGI}}/index" title="{{.DescIndex}}">{{.Message.index}}</a>
+  {{ if or .IsFriend .IsAdmin }}
+    <li><a href="{{.GatewayCGI}}/recent" title="{{.DescRecent}}">{{.Message.recent}}</a>
+    <li><a href="{{.GatewayCGI}}/new" title="{{.DescNew}}">{{.Message.new}}</a>
+  {{ end }}
+  <li><a href="{{.RSS}}">{{.Message.rss}}</a></li>
+</ul>
+
+</aside>
+{{end}}
